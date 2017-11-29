@@ -62,7 +62,7 @@ def question3e():
 def question6():
     answerEpsilon = None
     answerLearningRate = None
-    return 'NOT POSSIBLE'
+    return 'NOT POSSIBLE'       #50 iterations are too less for agent to learn optimal policy
     #return answerEpsilon, answerLearningRate
     # If not possible, return 'NOT POSSIBLE'
 

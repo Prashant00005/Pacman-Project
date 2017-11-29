@@ -100,7 +100,7 @@ class ValueIterationAgent(ValueEstimationAgent):
         for next_State, probability in self.mdp.getTransitionStatesAndProbs(state, action):
             reward = self.mdp.getReward(state,action,next_State)   #to get the reward of state of gridworld
             value = self.getValue(next_State)       #to get the value from the constructor
-            Q_Value = Q_Value + probability * ( reward + gamma * value)  #Refer readme for this formula
+            Q_Value = Q_Value + probability * ( reward + gamma * value)  #Refer readme for this formula  at line 3
 
         return Q_Value      #Returning the QValue
 
@@ -135,7 +135,7 @@ class ValueIterationAgent(ValueEstimationAgent):
             best_ValueIteration = valueIteration
 
         return policy
-        
+
         util.raiseNotDefined()
 
     def getPolicy(self, state):

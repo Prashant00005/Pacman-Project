@@ -72,11 +72,14 @@ class QLearningAgent(ReinforcementAgent):
         """
         "*** YOUR CODE HERE ***"
         self.Temporary_QValue = util.Counter()  #initializing a temporary QValue counter
+
         temporary_QValue = self.Temporary_QValue
 
         maxAction_OverLegalAction = self.getPolicy(state)         #Calls get poilcy which in turn calls the computeActionFromQValues function to get the action we need to take
-        if maxAction_OverLegalAction == 0:
-            return 0.0
+
+        if maxAction_OverLegalAction == 0:              #checks if returned state is terminal state
+                return 0.0
+
         temporary_QValue[maxAction_OverLegalAction] = self.getQValue(state,maxAction_OverLegalAction)  #to get the Qvalue of the action returned from computeActionFromQValues function
 
 
@@ -91,17 +94,19 @@ class QLearningAgent(ReinforcementAgent):
         """
         "*** YOUR CODE HERE ***"
         self.Temporary_QValue = util.Counter()  #initializing a temporary QValue counter
+
         temporary_QValue = self.Temporary_QValue
 
         legal_Actions = self.getLegalActions(state)  #get all the legal actions like north,south,east,west,exit
+
         length_legalActions = len(legal_Actions)    #find length of legal actions just to find later if we have legal actions or not
 
         if length_legalActions == 0:  #to check if we have any legal action or not
-          return 0.0    #Returns value 0 as we do not have any legal actions, we cannot pass 'None' as autograder in q8 expects a float value and not string value
+            return 0.0    #Returns value 0 as we do not have any legal actions, we cannot pass 'None' as autograder in q8 expects a float value and not string value
 
         for a in legal_Actions:     #loop to check for each legal action
 
-          temporary_QValue[a] = self.getQValue(state,a)     #Find the Qvalue of each action
+            temporary_QValue[a] = self.getQValue(state,a)     #Find the Qvalue of each action
 
         best_action = temporary_QValue.argMax() #find the best action to take in a state
         return best_action
@@ -122,7 +127,7 @@ class QLearningAgent(ReinforcementAgent):
         legalActions = self.getLegalActions(state)
         action = None
         "*** YOUR CODE HERE ***"
-        length_legalActions = len(legalActions)
+        length_legalActions = len(legalActions)  #Find length of allowed actions
 
         if length_legalActions == 0:  #To check if no legal action is possible, that is incase of terminal state
               action = None     #set action as none and return from here
@@ -161,7 +166,7 @@ class QLearningAgent(ReinforcementAgent):
         discount_factor =  self.discount #to get the gamma/ discount factor
 
 
-        Q_Value[(state,action)] = ((1-learning_rate) * temporary_QValue) + (learning_rate * (reward + discount_factor * nextState_QValue)) #for formula go to README_Reinforcement.txt
+        Q_Value[(state,action)] = ((1-learning_rate) * temporary_QValue) + (learning_rate * (reward + discount_factor * nextState_QValue)) #for formula go to README_Reinforcement.txt at line 8
 
         #util.raiseNotDefined()
 
@@ -227,15 +232,17 @@ class ApproximateQAgent(PacmanQAgent):
         """
         "*** YOUR CODE HERE ***"
         Q_Value = 0 #initializing q value
+
         feat_Extractor = self.featExtractor
+
         weight = self.weights       #To get the weight to control exploration and exploitation
 
         features = feat_Extractor.getFeatures(state,action)  #to get all the features associated with (state,action) pair
 
         for each_feature in features:
-             #refer to README_Reinforcement.txt for the formula
-              temp_Qvalue = weight[each_feature] * features[each_feature]   #Q(state,action) = w * featureVector where * is the dotProduct operator
-              Q_Value = Q_Value + temp_Qvalue
+             #refer to README_Reinforcement.txt for the formula at line 11
+                  temp_Qvalue = weight[each_feature] * features[each_feature]   #Q(state,action) = w * featureVector where * is the dotProduct operator
+                  Q_Value = Q_Value + temp_Qvalue
 
         return Q_Value   #Returns final qvalue
         #util.raiseNotDefined()
@@ -259,11 +266,13 @@ class ApproximateQAgent(PacmanQAgent):
 
         Q_Value = 0
 
-        difference = (reward + discount_factor * nextState_QValue - temporary_QValue)  #refer to readme for the formula
+        difference = (reward + discount_factor * nextState_QValue ) - (temporary_QValue)  #refer to README_Reinforcement.txt for the formula
 
         for each_feature in features:
-            #refer to README_Reinforcement.txt for the formula
-              weight[each_feature] = weight[each_feature] + features[each_feature] * learning_rate * difference
+
+            #refer to README_Reinforcement.txt for the formula at line 20
+              weight[each_feature] = weight[each_feature] + learning_rate * difference * features[each_feature]
+
         #util.raiseNotDefined()
 
     def final(self, state):
