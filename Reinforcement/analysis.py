@@ -20,7 +20,6 @@
 # value iteration.
 
 def question2():
-    #If we make the discount 0 the second term in the bellman equation becomes zero everytime
     answerDiscount = 0
     answerNoise = 0.2
     return answerDiscount, answerNoise
@@ -54,7 +53,7 @@ def question3d():
     # If not possible, return 'NOT POSSIBLE'
 
 def question3e():
-    answerDiscount = 0
+    answerDiscount = 0.0
     answerNoise = 0.1
     answerLivingReward = -3
     return answerDiscount, answerNoise, answerLivingReward
@@ -63,7 +62,8 @@ def question3e():
 def question6():
     answerEpsilon = None
     answerLearningRate = None
-    return answerEpsilon, answerLearningRate
+    return 'NOT POSSIBLE'
+    #return answerEpsilon, answerLearningRate
     # If not possible, return 'NOT POSSIBLE'
 
 if __name__ == '__main__':

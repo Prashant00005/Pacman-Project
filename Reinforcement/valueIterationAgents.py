@@ -45,12 +45,11 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
-
-        counter_Dictionary = util.Counter()     #initialize dictionary counter which at the end gives us the final best value iterations
         no_of_iterations = self.iterations  #to loop till number of iterations
 
         for i in range(0,no_of_iterations):
 
+          counter_Dictionary = util.Counter()     #initialize dictionary counter which at the end gives us the final best value iterations
           get_States = mdp.getStates()      #to get all the nodes/coordinates of gridworld
 
           for action_state in get_States:   #iterate each node of gridworld
@@ -74,7 +73,8 @@ class ValueIterationAgent(ValueEstimationAgent):
                     best_ValueIteration = valueIteration            #overwriting Qvalue if it is a better Qvalue of previous action
                     counter_Dictionary[action_state] = best_ValueIteration     #for each state storing the best Qvalue
 
-          self.values = counter_Dictionary  #returning dictionary of best values of each node in gridworld
+          self.values = counter_Dictionary  #setting dictionary of best value of each node in gridworld
+
 
     def getValue(self, state):
         """
@@ -103,6 +103,7 @@ class ValueIterationAgent(ValueEstimationAgent):
             Q_Value = Q_Value + probability * ( reward + gamma * value)  #Refer readme for this formula
 
         return Q_Value      #Returning the QValue
+
         util.raiseNotDefined()
 
     def computeActionFromValues(self, state):
@@ -128,22 +129,21 @@ class ValueIterationAgent(ValueEstimationAgent):
 
           valueIteration = self.getQValue(state,action);   #Gets the QValue from computeQValueFromValues function for each action {north, south, east and west} of a state
 
+
           if valueIteration >= best_ValueIteration:
             policy = action
             best_ValueIteration = valueIteration
 
         return policy
+        
         util.raiseNotDefined()
 
     def getPolicy(self, state):
-
         return self.computeActionFromValues(state)
 
     def getAction(self, state):
         "Returns the policy at the state (no exploration)."
-
         return self.computeActionFromValues(state)
 
     def getQValue(self, state, action):
-
         return self.computeQValueFromValues(state, action)
